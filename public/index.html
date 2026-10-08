@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Charades Showdown</title>
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="theme-color" content="#ffffff" id="theme-color">
+</head>
+<body>
+  <div class="safe-area container">
+    
+    <!-- JOIN VIEW -->
+    <div id="view-join" class="view active">
+      <h1 style="font-size: 3rem; line-height: 1.1; margin-bottom: 2rem;">Charades<br><span class="text-gold">Showdown</span></h1>
+      <div class="card" style="width: 100%;">
+        <input type="text" id="player-name" class="input" placeholder="Your Name" maxlength="24" autocomplete="off">
+        <button id="btn-join" class="btn btn-red" style="width: 100%; margin-top: 1rem;">Join Game</button>
+      </div>
+    </div>
+
+    <!-- LOBBY VIEW -->
+    <div id="view-lobby" class="view">
+      <h2 style="font-size: 2.5rem;">Waiting for Host</h2>
+      <div class="card" style="margin-top: 2rem; width: 100%;">
+        <h3 id="lobby-team-name" style="font-size: 2rem; margin-bottom: 0.5rem;">Team Red</h3>
+        <p style="font-size: 1.25rem; font-weight: 600;">You are on <span id="lobby-team-text">Team Red</span>.</p>
+        <p style="margin-top: 1rem; opacity: 0.8; font-weight: 500;">Look at the big screen.</p>
+      </div>
+    </div>
+
+    <!-- READY VIEW (Waiting / Next up) -->
+    <div id="view-ready" class="view">
+      <h2 id="ready-title" style="font-size: 2.5rem;">You're up!</h2>
+      <p id="ready-subtitle" style="font-size: 1.25rem; font-weight: 600; margin-top: 1rem;">Get ready.</p>
+      
+      <div id="ready-actor-controls" style="display: none; width: 100%; margin-top: 2rem;">
+        <div class="card" style="background: var(--white); color: var(--ink);">
+          <h3 style="margin-bottom: 1rem;">Rules</h3>
+          <ul style="text-align: left; margin-left: 1.5rem; font-weight: 600; font-size: 1.1rem; line-height: 1.5; margin-bottom: 1.5rem;">
+            <li>Act it out, no talking</li>
+            <li>No pointing at objects</li>
+            <li>Swipe Right = Correct</li>
+            <li>Swipe Left = Skip</li>
+          </ul>
+          <button id="btn-start-turn" class="btn btn-gold" style="width: 100%; font-size: 1.5rem; padding: 1.5rem;">Start My Turn</button>
+        </div>
+      </div>
+      
+      <div id="last-turn-summary" class="card" style="display: none; width: 100%; margin-top: 2rem; background: var(--white); color: var(--ink);">
+        <h4 id="summary-title" style="margin-bottom: 0.5rem;">Last Turn</h4>
+        <p id="summary-text" style="font-weight: 700; font-size: 1.5rem;">Team Red +5</p>
+      </div>
+    </div>
+
+    <!-- PLAYING VIEW (Actor) -->
+    <div id="view-playing-actor" class="view">
+      <div style="display: flex; justify-content: space-between; width: 100%; font-weight: 800; font-size: 1.5rem;">
+        <div id="actor-timer">60</div>
+        <div id="actor-correct" class="text-green">0 Correct</div>
+      </div>
+      
+      <div class="word-card-container" id="word-card-container">
+        <!-- JS will inject the card here -->
+      </div>
+      
+      <div class="controls-row">
+        <button id="btn-skip" class="btn btn-white" style="border-color: var(--gold); border-width: 4px;">Skip <span id="skips-left-text" style="font-size: 0.9rem; margin-left: 0.5rem; opacity: 0.8;">(3)</span></button>
+        <button id="btn-correct" class="btn btn-white" style="border-color: var(--green); border-width: 4px;">Got It!</button>
+      </div>
+    </div>
+
+    <!-- PLAYING VIEW (Guesser / Observer) -->
+    <div id="view-playing-observer" class="view">
+      <h2 id="observer-title" style="font-size: 3rem;">Guess!</h2>
+      <div id="observer-timer" class="timer" style="font-size: 6rem; margin: 2rem 0;">60</div>
+      <div class="card" style="width: 100%; background: var(--white); color: var(--ink);">
+        <h3 style="margin-bottom: 0.5rem;">Current Turn</h3>
+        <p id="observer-correct" style="font-size: 2rem; font-weight: 800;" class="text-green">0 Correct</p>
+      </div>
+    </div>
+    
+    <!-- OVER VIEW -->
+    <div id="view-over" class="view">
+      <h1 id="over-title" style="font-size: 3.5rem; margin-bottom: 1rem;">Game Over</h1>
+      <p id="over-subtitle" style="font-size: 2rem; font-weight: 700;">Team Red Wins!</p>
+      <div class="card" style="width: 100%; margin-top: 2rem; background: var(--white); color: var(--ink);">
+        <p style="font-size: 1.25rem; font-weight: 600;">Look at the big screen for final scores.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/player.js"></script>
+</body>
+</html>
