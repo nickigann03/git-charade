@@ -304,23 +304,28 @@ const categories = {
 const modalSettings = document.getElementById('modal-settings');
 const categorySelect = document.getElementById('set-category');
 const wordsTextarea = document.getElementById('set-words');
+let selectedCategory = 'it';
 
 categorySelect.addEventListener('change', (e) => {
   const cat = e.target.value;
   if (categories[cat]) {
     wordsTextarea.value = categories[cat].join('\n');
+    selectedCategory = cat;
+  } else {
+    selectedCategory = 'custom';
   }
 });
 
 wordsTextarea.addEventListener('input', () => {
   categorySelect.value = 'custom';
+  selectedCategory = 'custom';
 });
 
 document.getElementById('btn-settings').addEventListener('click', () => {
   document.getElementById('set-time').value = gameState.settings.turnSeconds;
   document.getElementById('set-skips').value = gameState.settings.skipsPerTurn;
   wordsTextarea.value = gameState.settings.words.join('\n');
-  categorySelect.value = 'custom';
+  categorySelect.value = selectedCategory;
   modalSettings.classList.remove('hidden');
 });
 
