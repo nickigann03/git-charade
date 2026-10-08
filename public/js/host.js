@@ -293,11 +293,34 @@ const startLocalTimer = (endTime) => {
 };
 
 // Settings Modal
+const categories = {
+  it: ["Restart your computer", "Password reset", "Printer jam", "Wi-Fi not working", "Computer virus", "Hacker", "Backup", "Copy and paste", "Downloading", "Spam email", "Robot", "Selfie", "Software update", "Server down", "Typing very fast", "Charging your phone", "Battery at 1%", "Forgot password", "Video call freezing", "Unplug and plug back in", "Mouse not working", "Scanning a QR code", "Laptop overheating", "Dropped your phone", "Firewall", "Phishing email", "Blue screen of death", "Two-factor authentication", "You're on mute", "Sharing your screen", "AI chatbot", "Ransomware", "Data centre", "Ctrl Alt Delete", "Legacy system", "Go-live", "Rollback", "Scope creep", "Digital transformation", "Change request", "Deadline", "Coffee break", "Meeting that should have been an email", "Out of office", "Overtime", "Pay day", "Monday morning", "Sleeping in a meeting", "Boss walking past", "Annual leave", "Giving a presentation", "Budget cut", "Team building", "Waiting for approval", "Lunch break", "Stuck in the lift", "Reply all", "Signing a contract", "Job interview", "Photocopier", "Fire drill", "Performance review"],
+  animals: ["Lion", "Tiger", "Elephant", "Giraffe", "Monkey", "Kangaroo", "Penguin", "Dolphin", "Shark", "Whale", "Octopus", "Snake", "Crocodile", "Frog", "Turtle", "Eagle", "Owl", "Parrot", "Ostrich", "Peacock", "Bear", "Wolf", "Fox", "Rabbit", "Deer", "Horse", "Cow", "Pig", "Sheep", "Goat", "Chicken", "Duck", "Dog", "Cat", "Mouse", "Bat", "Spider", "Butterfly", "Bee", "Ant"],
+  malaysia: ["Teh tarik", "Roti canai", "Durian", "Nasi lemak", "Mamak", "Stuck in traffic", "Looking for parking", "Hari Raya open house", "Angpow", "Afternoon thunderstorm", "Grab driver", "Touch 'n Go", "Badminton", "Karaoke", "Mahjong", "MRT", "Satay", "Lion dance", "Pasar malam", "Cendol", "Bak kut teh", "Batu Caves", "Petronas Twin Towers", "Langkawi", "Mount Kinabalu", "Orangutan", "Batik", "Sepaktakraw", "Wau bulan", "Congkak"],
+  sports: ["Football", "Basketball", "Tennis", "Badminton", "Swimming", "Cycling", "Running", "Gymnastics", "Boxing", "Martial arts", "Yoga", "Dancing", "Singing", "Playing guitar", "Playing piano", "Painting", "Drawing", "Photography", "Cooking", "Baking", "Gardening", "Fishing", "Camping", "Hiking", "Reading", "Writing", "Playing video games", "Watching movies", "Listening to music", "Traveling", "Shopping", "Knitting", "Sewing", "Woodworking", "Pottery"],
+  jobs: ["Doctor", "Nurse", "Teacher", "Police officer", "Firefighter", "Chef", "Waiter", "Mechanic", "Plumber", "Electrician", "Carpenter", "Pilot", "Flight attendant", "Bus driver", "Train conductor", "Farmer", "Fisherman", "Artist", "Musician", "Actor", "Writer", "Photographer", "Software engineer", "Accountant", "Lawyer", "Judge", "Politician", "Scientist", "Astronaut", "Athlete"]
+};
+
 const modalSettings = document.getElementById('modal-settings');
+const categorySelect = document.getElementById('set-category');
+const wordsTextarea = document.getElementById('set-words');
+
+categorySelect.addEventListener('change', (e) => {
+  const cat = e.target.value;
+  if (categories[cat]) {
+    wordsTextarea.value = categories[cat].join('\n');
+  }
+});
+
+wordsTextarea.addEventListener('input', () => {
+  categorySelect.value = 'custom';
+});
+
 document.getElementById('btn-settings').addEventListener('click', () => {
   document.getElementById('set-time').value = gameState.settings.turnSeconds;
   document.getElementById('set-skips').value = gameState.settings.skipsPerTurn;
-  document.getElementById('set-words').value = gameState.settings.words.join('\n');
+  wordsTextarea.value = gameState.settings.words.join('\n');
+  categorySelect.value = 'custom';
   modalSettings.classList.remove('hidden');
 });
 
